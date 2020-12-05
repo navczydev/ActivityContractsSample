@@ -1,0 +1,31 @@
+// Requesting Location Permission
+bi.btnRequestPermission.setOnClickListener {
+    askLocationPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+}
+
+// Single Permission Contract
+private val askLocationPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
+    if(result){
+        Log.e("TAG", "Location permnission granted")
+    }else{
+        Log.e("TAG", "Location permnission denied")
+    }
+}
+
+// -------------------------------------------------------------------
+
+// Requesting Mutliple Permissions - Location & Bluetooth
+bi.btnRequestPermission.setOnClickListener {
+    askMultiplePermissions(arrayOf(
+      android.Manifest.permission.ACCESS_FINE_LOCATION,
+      android.Manifest.permission.BLUETOOTH
+    ))
+}
+
+// Mutliple Permissions Contract
+private val askMultiplePermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {map ->
+    for (entry in map.entries)
+    {
+        Toast.makeText(this, "${entry.key} = ${entry.value}", Toast.LENGTH_SHORT).show()
+    }
+}
